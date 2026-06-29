@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Insurify</title>
+  <meta name="description"
+    content="Learn about Insurify's mission, our team, and why we're India's most trusted insurance prediction platform." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+  <div class="page-loader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Insurify</div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar-insurify">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <a href="index.html" class="navbar-brand-logo"><span class="logo-icon">I</span>Insurify</a>
+        <ul class="nav d-none d-lg-flex align-items-center gap-1">
+          <li><a href="index.html" class="nav-link" data-page="index.html">Home</a></li>
+          <li><a href="about.html" class="nav-link" data-page="about.html">About Us</a></li>
+          <li><a href="insurance.html" class="nav-link" data-page="insurance.html">Insurance Plans</a></li>
+          <li><a href="blogs.html" class="nav-link" data-page="blogs.html">Blogs</a></li>
+          <li><a href="contact.html" class="nav-link" data-page="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-none d-lg-flex gap-2">
+          <a href="predict.html" class="btn-outline-custom">Predict Cost</a>
+          <a href="predict.html" class="btn-primary-custom">Get Started</a>
+        </div>
+        <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse"
+          data-bs-target="#mobileMenu" aria-expanded="false">
+          <i class="bi bi-list" style="font-size:1.7rem;color:var(--primary)"></i>
+        </button>
+      </div>
+      <div class="collapse" id="mobileMenu">
+        <ul class="nav flex-column py-3 gap-1">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="insurance.html" class="nav-link">Insurance Plans</a></li>
+          <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li class="mt-2 d-flex flex-column gap-2">
+            <a href="predict.html" class="btn-outline-custom text-center">Predict Cost</a>
+            <a href="predict.html" class="btn-primary-custom justify-content-center">Get Started</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container page-hero-content">
+      <div class="breadcrumb-custom justify-content-center mb-3">
+        <a href="index.html">Home</a><i class="bi bi-chevron-right" style="font-size:.7rem"></i><span>About Us</span>
+      </div>
+      <h1>About Insurify</h1>
+      <p>Transforming how India thinks about health insurance — one smart prediction at a time.</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section" style="background:var(--bg-light)">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 reveal-left">
+          <span class="badge-pill badge-primary mb-3">Our Story</span>
+          <h2 class="mb-4">A Machine Learning Academic Project</h2>
+          <p class="text-muted mb-4" style="line-height:1.8">Insurify is a machine learning project developed in 2026 by
+            students of Sanjay Ghodawat University. It focuses on predicting medical insurance costs based on factors
+            like age, BMI, and lifestyle, helping users understand insurance pricing more clearly.</p>
+          <div class="d-flex gap-4">
+            <div>
+              <div style="font-size:1.8rem;font-weight:800;color:var(--primary)">2026</div>
+              <div style="font-size:.85rem;color:var(--text-muted)">Project Developed</div>
+            </div>
+            <div>
+              <div style="font-size:1.8rem;font-weight:800;color:var(--accent)">4</div>
+              <div style="font-size:.85rem;color:var(--text-muted)">Team Members</div>
+            </div>
+            <div>
+              <div style="font-size:1.8rem;font-weight:800;color:#8B5CF6">100%</div>
+              <div style="font-size:.85rem;color:var(--text-muted)">Academic Project</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#fff">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="badge-pill badge-accent mb-3">Why Insurify</span>
+        <h2>The smarter way to choose health insurance</h2>
+        <p>We're not just another insurance portal — we're your intelligent healthcare financial advisor.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 reveal">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-cpu-fill"></i></div>
+            <div>
+              <div class="why-title">AI-Powered Precision</div>
+              <div class="why-desc">Our ML model delivers predictions with over 92% accuracy — so you pay exactly what
+                you should.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 reveal">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-person-heart"></i></div>
+            <div>
+              <div class="why-title">Customer-First Approach</div>
+              <div class="why-desc">Available 24/7 to handle your questions, decisions, and claims.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 reveal">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <div class="why-title">Fully Regulated &amp; Trusted</div>
+              <div class="why-desc">IRDAI-compliant, partnering only with top-rated insurance companies. Your data is
+                always protected.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 reveal">
+          <div class="why-card">
+            <div class="why-icon"><i class="bi bi-phone-fill"></i></div>
+            <div>
+              <div class="why-title">100% Digital Experience</div>
+              <div class="why-desc">Buy, renew, and claim entirely online — no paperwork, no branch visits, no waiting
+                in queues.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section feature-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="badge-pill badge-primary mb-3">Our Team</span>
+        <h2>Built by brilliant minds, for real people</h2>
+        <p>Meet the talented team behind Insurify — passionate innovators dedicated to transforming healthcare finance.
+        </p>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-sm-6 col-lg-3 reveal">
+          <div class="team-card h-100 d-flex flex-column">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#1A6FDB,#8B5CF6)">K</div>
+            <div class="team-name">Kshitija</div>
+            <div class="team-role">Lead Data Scientist</div>
+            <div class="team-desc flex-grow-1">Works on data and helps build smart systems for predictions, especially in healthcare.</div>
+
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3 reveal" style="transition-delay:.12s">
+          <div class="team-card h-100 d-flex flex-column">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#00B894,#1A6FDB)">P</div>
+            <div class="team-name">Pallavi</div>
+            <div class="team-role">Backend Engineer</div>
+            <div class="team-desc flex-grow-1">Works on the backend part like databases and APIs to make sure everything runs smoothly.</div>
+
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3 reveal" style="transition-delay:.24s">
+          <div class="team-card h-100 d-flex flex-column">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#F97316,#EF4444)">Y</div>
+            <div class="team-name">Yashida</div>
+            <div class="team-role">Frontend Developer</div>
+            <div class="team-desc flex-grow-1">Designs the website and makes it look good and easy to use.</div>
+
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3 reveal" style="transition-delay:.36s">
+          <div class="team-card h-100 d-flex flex-column">
+            <div class="team-avatar" style="background:linear-gradient(135deg,#0D47A1,#00B894)">S</div>
+            <div class="team-name">Swayam</div>
+            <div class="team-role">Machine Learning Developer</div>
+            <div class="team-desc flex-grow-1">Builds and improves machine learning models to make better predictions.</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section" style="background:var(--gradient)">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4 text-center reveal">
+          <div style="font-size:3rem;margin-bottom:1rem">💡</div>
+          <h5 style="color:#fff;font-weight:700;margin-bottom:.5rem">Innovation</h5>
+          <p style="color:rgba(255,255,255,.8);font-size:.92rem">Constantly improving prediction models with the latest
+            data science advances.</p>
+        </div>
+        <div class="col-md-4 text-center reveal" style="transition-delay:.1s">
+          <div style="font-size:3rem;margin-bottom:1rem">🤝</div>
+          <h5 style="color:#fff;font-weight:700;margin-bottom:.5rem">Integrity</h5>
+          <p style="color:rgba(255,255,255,.8);font-size:.92rem">Complete transparency in pricing, policies, and claims
+            — we never mislead customers.</p>
+        </div>
+        <div class="col-md-4 text-center reveal" style="transition-delay:.2s">
+          <div style="font-size:3rem;margin-bottom:1rem">❤️</div>
+          <h5 style="color:#fff;font-weight:700;margin-bottom:.5rem">Empathy</h5>
+          <p style="color:rgba(255,255,255,.8);font-size:.92rem">We understand health crises are stressful. Our team
+            approaches every interaction with care.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <button class="back-to-top" id="backToTop"><i class="bi bi-arrow-up"></i></button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

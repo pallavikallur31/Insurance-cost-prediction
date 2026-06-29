@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insurance Plans — Insurify</title>
+  <meta name="description" content="Explore Individual, Family, Senior Citizen, and Critical Illness insurance plans on Insurify. Compare benefits and choose the right coverage." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="page-loader"><div class="loader-ring"></div><div class="loader-text">Insurify</div></div>
+
+<!-- NAVBAR -->
+<nav class="navbar-insurify">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <a href="index.html" class="navbar-brand-logo"><span class="logo-icon">I</span>Insurify</a>
+      <ul class="nav d-none d-lg-flex align-items-center gap-1">
+        <li><a href="index.html" class="nav-link" data-page="index.html">Home</a></li>
+        <li><a href="about.html" class="nav-link" data-page="about.html">About Us</a></li>
+        <li><a href="insurance.html" class="nav-link" data-page="insurance.html">Insurance Plans</a></li>
+        <li><a href="blogs.html" class="nav-link" data-page="blogs.html">Blogs</a></li>
+        <li><a href="contact.html" class="nav-link" data-page="contact.html">Contact</a></li>
+      </ul>
+      <div class="d-none d-lg-flex gap-2">
+        <a href="predict.html" class="btn-outline-custom">Predict Cost</a>
+        <a href="predict.html" class="btn-primary-custom">Get Started</a>
+      </div>
+      <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-expanded="false">
+        <i class="bi bi-list" style="font-size:1.7rem;color:var(--primary)"></i>
+      </button>
+    </div>
+    <div class="collapse" id="mobileMenu">
+      <ul class="nav flex-column py-3 gap-1">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="insurance.html" class="nav-link">Insurance Plans</a></li>
+        <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li class="mt-2 d-flex flex-column gap-2">
+          <a href="predict.html" class="btn-outline-custom text-center">Predict Cost</a>
+          <a href="predict.html" class="btn-primary-custom justify-content-center">Get Started</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-content">
+    <div class="breadcrumb-custom justify-content-center mb-3">
+      <a href="index.html">Home</a><i class="bi bi-chevron-right" style="font-size:.7rem"></i><span>Insurance Plans</span>
+    </div>
+    <h1>Explore Insurance Plans</h1>
+    <p>Comprehensive coverage options designed for every stage of life and every type of family.</p>
+  </div>
+</section>
+
+<!-- PLAN CARDS -->
+<section class="section" style="background:var(--bg-light)">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="badge-pill badge-primary mb-3">Our Plans</span>
+      <h2>Coverage that fits your life</h2>
+      <p>From individuals to entire families — we have the right plan for everyone.</p>
+    </div>
+    <div class="row g-4">
+
+      <!-- Individual -->
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-icon">👤</div>
+            <div class="plan-card-title">Individual Insurance</div>
+            <div style="font-size:.85rem;opacity:.85;margin-top:.4rem">For single professionals</div>
+          </div>
+          <div class="plan-card-body">
+            <div style="font-size:.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.25rem">
+              Tailored health insurance for working adults and young professionals. Covers hospitalization, OPD, and preventive care.
+            </div>
+            <ul style="list-style:none;padding:0;font-size:.88rem;color:var(--text-muted);margin-bottom:1.5rem">
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Sum insured up to ₹1 Cr</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Cashless at 10,000+ hospitals</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>No room rent capping</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Mental health coverage</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Annual health check-up</li>
+            </ul>
+            <div style="margin-bottom:1rem"><span style="font-size:.78rem;color:var(--text-muted)">Starting from</span><br><span style="font-size:1.6rem;font-weight:800;color:var(--primary)">₹999</span><span style="font-size:.85rem;color:var(--text-muted)">/month</span></div>
+            <a href="predict.html" class="btn-primary-custom w-100 justify-content-center">Predict My Cost</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Family -->
+      <div class="col-md-6 col-lg-3 reveal" style="transition-delay:.1s">
+        <div class="plan-card featured">
+          <div style="position:absolute;top:12px;right:12px;background:#F59E0B;color:#fff;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:99px;letter-spacing:.04em">POPULAR</div>
+          <div class="plan-card-header">
+            <div class="plan-card-icon">👨‍👩‍👧‍👦</div>
+            <div class="plan-card-title">Family Insurance</div>
+            <div style="font-size:.85rem;opacity:.85;margin-top:.4rem">Protect every loved one</div>
+          </div>
+          <div class="plan-card-body">
+            <div style="font-size:.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.25rem">
+              A single policy that covers the entire family — spouse, children, and more. Shared sum insured with complete protection.
+            </div>
+            <ul style="list-style:none;padding:0;font-size:.88rem;color:var(--text-muted);margin-bottom:1.5rem">
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Cover up to 6 family members</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Sum insured up to ₹2 Cr</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Maternity benefits included</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>New born baby coverage</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Vaccination expenses</li>
+            </ul>
+            <div style="margin-bottom:1rem"><span style="font-size:.78rem;color:var(--text-muted)">Starting from</span><br><span style="font-size:1.6rem;font-weight:800;color:var(--primary)">₹1,499</span><span style="font-size:.85rem;color:var(--text-muted)">/month</span></div>
+            <a href="predict.html" class="btn-primary-custom w-100 justify-content-center">Predict My Cost</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Senior Citizen -->
+      <div class="col-md-6 col-lg-3 reveal" style="transition-delay:.2s">
+        <div class="plan-card">
+          <div class="plan-card-header" style="background:linear-gradient(135deg,#8B5CF6,#0D47A1)">
+            <div class="plan-card-icon">👴</div>
+            <div class="plan-card-title">Senior Citizen Insurance</div>
+            <div style="font-size:.85rem;opacity:.85;margin-top:.4rem">For 60+ years of age</div>
+          </div>
+          <div class="plan-card-body">
+            <div style="font-size:.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.25rem">
+              Specially crafted for elderly individuals with age-related conditions. Comprehensive coverage with no pre-existing disease wait period.
+            </div>
+            <ul style="list-style:none;padding:0;font-size:.88rem;color:var(--text-muted);margin-bottom:1.5rem">
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Covers pre-existing diseases</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Domiciliary hospitalization</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Ayurveda/AYUSH treatment</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Emergency ambulance</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>24/7 teleconsultation</li>
+            </ul>
+            <div style="margin-bottom:1rem"><span style="font-size:.78rem;color:var(--text-muted)">Starting from</span><br><span style="font-size:1.6rem;font-weight:800;color:var(--primary)">₹2,299</span><span style="font-size:.85rem;color:var(--text-muted)">/month</span></div>
+            <a href="predict.html" class="btn-primary-custom w-100 justify-content-center">Predict My Cost</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Critical Illness -->
+      <div class="col-md-6 col-lg-3 reveal" style="transition-delay:.3s">
+        <div class="plan-card">
+          <div class="plan-card-header" style="background:linear-gradient(135deg,#EF4444,#F97316)">
+            <div class="plan-card-icon">🫀</div>
+            <div class="plan-card-title">Critical Illness Insurance</div>
+            <div style="font-size:.85rem;opacity:.85;margin-top:.4rem">For life-threatening conditions</div>
+          </div>
+          <div class="plan-card-body">
+            <div style="font-size:.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.25rem">
+              Lump-sum benefit on diagnosis of 34 critical illnesses including cancer, heart attack, and stroke. Income replacement during recovery.
+            </div>
+            <ul style="list-style:none;padding:0;font-size:.88rem;color:var(--text-muted);margin-bottom:1.5rem">
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>34 critical illness covered</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Lump-sum payout on diagnosis</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Cancer Stage 1 covered</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>No hospitalization required</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2" style="color:var(--accent)"></i>Income loss protection</li>
+            </ul>
+            <div style="margin-bottom:1rem"><span style="font-size:.78rem;color:var(--text-muted)">Starting from</span><br><span style="font-size:1.6rem;font-weight:800;color:var(--primary)">₹799</span><span style="font-size:.85rem;color:var(--text-muted)">/month</span></div>
+            <a href="predict.html" class="btn-primary-custom w-100 justify-content-center">Predict My Cost</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="section" style="background:#fff">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="badge-pill badge-accent mb-3">Compare Plans</span>
+      <h2>Side-by-side benefits comparison</h2>
+      <p>Make an informed decision with our comprehensive plan comparison.</p>
+    </div>
+    <div class="table-responsive reveal">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Features / Benefits</th>
+            <th>Individual</th>
+            <th>Family</th>
+            <th>Senior Citizen</th>
+            <th>Critical Illness</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Sum Insured</td><td>Up to ₹1 Cr</td><td>Up to ₹2 Cr</td><td>Up to ₹50 L</td><td>Up to ₹1 Cr</td></tr>
+          <tr><td>Cashless Hospitalization</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="cross">✗</td></tr>
+          <tr><td>Pre-existing Disease Cover</td><td>After 4 yrs</td><td>After 4 yrs</td><td>After 1 yr</td><td class="check">✓ Upfront</td></tr>
+          <tr><td>Maternity Benefits</td><td class="cross">✗</td><td class="check">✓</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+          <tr><td>Critical Illness Cover</td><td>Add-on</td><td>Add-on</td><td>Add-on</td><td class="check">✓ (34 illnesses)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--gradient)">
+  <div class="container text-center">
+    <div class="reveal">
+      <h2 style="color:#fff;margin-bottom:1rem">Not sure which plan is right for you?</h2>
+      <p style="color:rgba(255,255,255,.85);max-width:500px;margin:0 auto 2rem">Use our AI-powered prediction tool to get a personalized recommendation based on your health profile and budget.</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="predict.html" class="btn-primary-custom" style="background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5)"><i class="bi bi-calculator"></i> Predict My Cost</a>
+        <a href="contact.html" class="btn-primary-custom" style="background:#fff;color:var(--primary)!important"><i class="bi bi-telephone-fill"></i> Talk to Expert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<button class="back-to-top" id="backToTop"><i class="bi bi-arrow-up"></i></button>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

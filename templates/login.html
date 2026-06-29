@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Insurify</title>
+  <meta name="description" content="Sign in to your Insurify account to access AI-powered insurance cost predictions and personalized coverage recommendations." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <style>
+
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+    }
+
+
+    .login-brand-panel {
+      flex: 0 0 45%;
+      background: var(--gradient);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-brand-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0,184,148,.25) 0%, transparent 50%);
+    }
+
+    .brand-orb {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+      animation: orb-drift 8s ease-in-out infinite;
+    }
+    .brand-orb-1 { width: 300px; height: 300px; top: -80px; left: -80px; animation-delay: 0s; }
+    .brand-orb-2 { width: 200px; height: 200px; bottom: -50px; right: -50px; animation-delay: 3s; }
+    .brand-orb-3 { width: 120px; height: 120px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1.5s; }
+
+    @keyframes orb-drift {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50%       { transform: scale(1.05) translateY(-16px); }
+    }
+
+    .brand-content { position: relative; z-index: 2; text-align: center; color: #fff; }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 3rem;
+      letter-spacing: -.03em;
+    }
+    .brand-logo .logo-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,.22);
+      border: 2px solid rgba(255,255,255,.4);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 900;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand-headline {
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      letter-spacing: -.03em;
+    }
+    .brand-headline span {
+      background: linear-gradient(90deg, #A8EDEA, #FED6E3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand-desc {
+      font-size: 1rem;
+      opacity: .85;
+      line-height: 1.75;
+      max-width: 360px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .brand-feature-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      display: inline-flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .brand-feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .95rem;
+      opacity: .9;
+    }
+    .brand-feature-list li i {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      flex-shrink: 0;
+    }
+
+    .brand-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      width: 100%;
+      max-width: 360px;
+    }
+    .brand-stat {
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    .brand-stat-num  { font-size: 1.6rem; font-weight: 900; letter-spacing: -.03em; }
+    .brand-stat-label { font-size: .75rem; opacity: .8; margin-top: 2px; }
+
+    /* Right panel — form side */
+    .login-form-panel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-light);
+      padding: 3rem 2rem;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 460px;
+      background: #fff;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      animation: fadeInUp .5s ease;
+    }
+
+    .login-card-header {
+      padding: 2.25rem 2.5rem 0;
+    }
+
+    .login-card-body {
+      padding: 1.75rem 2.5rem 2.5rem;
+    }
+
+    .login-avatar {
+      width: 64px; height: 64px;
+      background: var(--gradient);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 8px 24px rgba(26,111,219,.3);
+    }
+
+    .login-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -.03em;
+      margin-bottom: .35rem;
+    }
+
+    .login-subtitle {
+      font-size: .92rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .login-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1.75rem 0;
+    }
+
+    /* Input group with icon */
+    .input-icon-group {
+      position: relative;
+    }
+    .input-icon-group .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1rem;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+    .input-icon-group input {
+      padding-left: 42px;
+    }
+    .input-icon-group input:focus ~ .input-icon,
+    .input-icon-group input:focus + .input-icon {
+      color: var(--primary);
+    }
+    /* Sibling hack — icon is before input in DOM */
+    .input-icon-group:focus-within .input-icon {
+      color: var(--primary);
+    }
+
+    /* Eye toggle for password */
+    .input-icon-group .pass-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+      line-height: 1;
+    }
+    .input-icon-group .pass-toggle:hover { color: var(--primary); }
+
+    /* Login CTA button */
+    .login-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--gradient);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 28px rgba(26,111,219,.35);
+      transition: var(--transition);
+      letter-spacing: .01em;
+      margin-top: .25rem;
+    }
+    .login-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(26,111,219,.45);
+    }
+    .login-btn:disabled { opacity: .75; cursor: not-allowed; }
+
+    /* Social divider */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      font-size: .82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Social login buttons */
+    .social-btns { display: flex; gap: 12px; }
+    .social-btn {
+      flex: 1;
+      padding: 11px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .social-btn:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 16px rgba(26,111,219,.12);
+      transform: translateY(-2px);
+    }
+    .social-btn img { width: 20px; height: 20px; }
+
+    /* Remember + Forgot row */
+    .login-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      font-size: .87rem;
+    }
+    .custom-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      color: var(--text-muted);
+    }
+    .custom-checkbox input { accent-color: var(--primary); width: 16px; height: 16px; cursor: pointer; }
+    .forgot-link {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: .87rem;
+      transition: var(--transition);
+    }
+    .forgot-link:hover { color: var(--primary-dark); text-decoration: underline; }
+
+    /* Register link at bottom */
+    .signup-prompt {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: .88rem;
+      color: var(--text-muted);
+    }
+    .signup-prompt a {
+      color: var(--primary);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    .signup-prompt a:hover { color: var(--primary-dark); text-decoration: underline; }
+
+    /* Error & success messages */
+    .auth-alert {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: .88rem;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .auth-alert.error   { background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.25); color: #DC2626; display: flex; }
+    .auth-alert.success { background: rgba(0,184,148,.08); border: 1px solid rgba(0,184,148,.25); color: var(--accent-dark); display: flex; }
+
+    /* Password strength bar */
+    .strength-bar-wrap { margin-top: .5rem; display: none; }
+    .strength-bar-track {
+      height: 4px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+    .strength-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width .4s ease, background .4s ease;
+      width: 0%;
+    }
+    .strength-label { font-size: .75rem; font-weight: 600; color: var(--text-muted); }
+
+    /* Tabs (Login / Register) */
+    .auth-tabs {
+      display: flex;
+      background: var(--bg-light);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      margin-bottom: 1.75rem;
+      gap: 4px;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: calc(var(--radius-sm) - 2px);
+      background: transparent;
+      font-family: inherit;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .auth-tab.active {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .login-brand-panel { display: none; }
+      .login-form-panel  { background: var(--bg-light); padding: 2rem 1rem; }
+    }
+    @media (max-width: 480px) {
+      .login-card-header, .login-card-body { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- PAGE LOADER -->
+  <div class="page-loader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Insurify</div>
+  </div>
+
+  <div class="login-page">
+
+    <!-- ── LEFT: Brand Panel ──────────────────────────── -->
+    <div class="login-brand-panel">
+      <div class="brand-orb brand-orb-1"></div>
+      <div class="brand-orb brand-orb-2"></div>
+      <div class="brand-orb brand-orb-3"></div>
+
+      <div class="brand-content">
+        <a href="{{ url_for('home') }}" class="brand-logo">
+          <span class="logo-icon">I</span>Insurify
+        </a>
+
+        <h2 class="brand-headline">
+          Smarter Insurance,<br><span>Tailored for You</span>
+        </h2>
+        <p class="brand-desc">
+          Log in to access AI-powered cost predictions, compare plans, and protect what matters most — in seconds.
+        </p>
+
+        <ul class="brand-feature-list">
+          <li>
+            <i class="bi bi-shield-check-fill"></i>
+            Personalised insurance predictions
+          </li>
+          <li>
+            <i class="bi bi-graph-up-arrow"></i>
+            95%+ ML model accuracy
+          </li>
+          <li>
+            <i class="bi bi-lock-fill"></i>
+            Your data is 100% private & secure
+          </li>
+          <li>
+            <i class="bi bi-lightning-charge-fill"></i>
+            Results in under 2 seconds
+          </li>
+        </ul>
+
+        <div class="brand-stats">
+          <div class="brand-stat">
+            <div class="brand-stat-num">3K+</div>
+            <div class="brand-stat-label">Cases Trained</div>
+          </div>
+          <div class="brand-stat">
+            <div class="brand-stat-num">95%</div>
+            <div class="brand-stat-label">Accuracy</div>
+          </div>
+          <div class="brand-stat">
+            <div class="brand-stat-num">4</div>
+            <div class="brand-stat-label">Plan Types</div>
+          </div>
+          <div class="brand-stat">
+            <div class="brand-stat-num">Free</div>
+            <div class="brand-stat-label">Always</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: Auth Form Panel ──────────────────────── -->
+    <div class="login-form-panel">
+      <div class="login-card">
+
+        <div class="login-card-header">
+          <div class="login-avatar">🏥</div>
+          <h1 class="login-title" id="formTitle">Welcome back</h1>
+          <p class="login-subtitle" id="formSubtitle">Sign in to your Insurify account</p>
+        </div>
+
+        <div class="login-card-body">
+
+          <!-- Tabs -->
+          <div class="auth-tabs" role="tablist">
+            <button class="auth-tab active" id="tabLogin" role="tab" aria-selected="true" onclick="switchTab('login')">
+              Sign In
+            </button>
+            <button class="auth-tab" id="tabRegister" role="tab" aria-selected="false" onclick="switchTab('register')">
+              Create Account
+            </button>
+          </div>
+
+          <!-- Alert banner -->
+          <div class="auth-alert" id="authAlert" role="alert">
+            <i class="bi bi-exclamation-circle-fill"></i>
+            <span id="authAlertMsg"></span>
+          </div>
+
+          <!-- ── LOGIN FORM ── -->
+          <form id="loginForm" novalidate autocomplete="on">
+
+            <div class="form-group-custom">
+              <label class="form-label-custom" for="loginEmail">Email Address</label>
+              <div class="input-icon-group">
+                <i class="bi bi-envelope-fill input-icon"></i>
+                <input
+                  type="email"
+                  id="loginEmail"
+                  name="email"
+                  class="form-control-custom"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label class="form-label-custom" for="loginPassword">Password</label>
+              <div class="input-icon-group">
+                <i class="bi bi-lock-fill input-icon"></i>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  name="password"
+                  class="form-control-custom"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  style="padding-right:44px"
+                  required
+                />
+                <button type="button" class="pass-toggle" aria-label="Toggle password visibility"
+                  onclick="togglePass('loginPassword', this)">
+                  <i class="bi bi-eye-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="login-options">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="rememberMe" name="remember" />
+                Remember me
+              </label>
+              <a href="#" class="forgot-link" onclick="showForgot(event)">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+              <i class="bi bi-box-arrow-in-right"></i> Sign In
+            </button>
+
+            <div class="or-divider">or continue with</div>
+
+            <div class="social-btns">
+              <button type="button" class="social-btn" id="googleLogin" onclick="handleSocialLogin('Google')">
+                <!-- Google SVG icon -->
+                <svg width="20" height="20" viewBox="0 0 48 48">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                  <path fill="none" d="M0 0h48v48H0z"/>
+                </svg>
+                Google
+              </button>
+              <button type="button" class="social-btn" id="githubLogin" onclick="handleSocialLogin('GitHub')">
+                <i class="bi bi-github" style="font-size:1.1rem"></i>
+                GitHub
+              </button>
+            </div>
+
+          </form>
+
+          <!-- ── REGISTER FORM (hidden initially) ── -->
+          <form id="registerForm" novalidate autocomplete="on" style="display:none">
+
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label-custom" for="regFirstName">First Name</label>
+                <div class="input-icon-group">
+                  <i class="bi bi-person-fill input-icon"></i>
+                  <input type="text" id="regFirstName" class="form-control-custom" placeholder="Swayam" required />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label-custom" for="regLastName">Last Name</label>
+                <div class="input-icon-group">
+                  <i class="bi bi-person-fill input-icon"></i>
+                  <input type="text" id="regLastName" class="form-control-custom" placeholder="Sharma" required />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-custom mt-3">
+              <label class="form-label-custom" for="regEmail">Email Address</label>
+              <div class="input-icon-group">
+                <i class="bi bi-envelope-fill input-icon"></i>
+                <input type="email" id="regEmail" class="form-control-custom" placeholder="you@example.com" autocomplete="email" required />
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label class="form-label-custom" for="regPassword">Password</label>
+              <div class="input-icon-group">
+                <i class="bi bi-lock-fill input-icon"></i>
+                <input
+                  type="password"
+                  id="regPassword"
+                  class="form-control-custom"
+                  placeholder="Create a strong password"
+                  style="padding-right:44px"
+                  autocomplete="new-password"
+                  required
+                  oninput="checkStrength(this.value)"
+                />
+                <button type="button" class="pass-toggle" aria-label="Toggle password visibility"
+                  onclick="togglePass('regPassword', this)">
+                  <i class="bi bi-eye-fill"></i>
+                </button>
+              </div>
+              <!-- Password strength -->
+              <div class="strength-bar-wrap" id="strengthWrap">
+                <div class="strength-bar-track">
+                  <div class="strength-bar-fill" id="strengthFill"></div>
+                </div>
+                <span class="strength-label" id="strengthLabel">Weak</span>
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label class="form-label-custom" for="regConfirm">Confirm Password</label>
+              <div class="input-icon-group">
+                <i class="bi bi-lock-fill input-icon"></i>
+                <input
+                  type="password"
+                  id="regConfirm"
+                  class="form-control-custom"
+                  placeholder="Repeat your password"
+                  style="padding-right:44px"
+                  autocomplete="new-password"
+                  required
+                />
+                <button type="button" class="pass-toggle" aria-label="Toggle confirm password visibility"
+                  onclick="togglePass('regConfirm', this)">
+                  <i class="bi bi-eye-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-start gap-2 mb-4 mt-1">
+              <input type="checkbox" id="termsCheck" style="accent-color:var(--primary);width:16px;height:16px;margin-top:3px;cursor:pointer;flex-shrink:0" required />
+              <label for="termsCheck" style="font-size:.85rem;color:var(--text-muted);cursor:pointer;line-height:1.5">
+                I agree to the <a href="#" style="color:var(--primary);font-weight:600">Terms of Service</a> and
+                <a href="#" style="color:var(--primary);font-weight:600">Privacy Policy</a>
+              </label>
+            </div>
+
+            <button type="submit" class="login-btn" id="registerBtn">
+              <i class="bi bi-person-plus-fill"></i> Create Account
+            </button>
+
+          </form>
+
+          <!-- Bottom signup prompt -->
+          <p class="signup-prompt" id="signupPrompt">
+            Don't have an account?
+            <a href="#" onclick="switchTab('register'); return false;">Sign up free</a>
+          </p>
+
+        </div><!-- /.login-card-body -->
+      </div><!-- /.login-card -->
+
+      <!-- Back to home -->
+      <div class="text-center mt-3">
+        <a href="{{ url_for('home') }}"
+          style="font-size:.85rem;color:var(--text-muted);display:inline-flex;align-items:center;gap:6px;transition:var(--transition)"
+          onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+          <i class="bi bi-arrow-left"></i> Back to Insurify
+        </a>
+      </div>
+
+    </div><!-- /.login-form-panel -->
+  </div><!-- /.login-page -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    // ── Tab Switch ────────────────────────────────────────────────
+    function switchTab(tab) {
+      const isLogin = tab === 'login';
+
+      document.getElementById('tabLogin').classList.toggle('active', isLogin);
+      document.getElementById('tabRegister').classList.toggle('active', !isLogin);
+
+      document.getElementById('loginForm').style.display    = isLogin ? '' : 'none';
+      document.getElementById('registerForm').style.display = isLogin ? 'none' : '';
+
+      document.getElementById('formTitle').textContent    = isLogin ? 'Welcome back' : 'Create your account';
+      document.getElementById('formSubtitle').textContent = isLogin
+        ? 'Sign in to your Insurify account'
+        : 'Join thousands of smart insurance buyers';
+
+      document.getElementById('signupPrompt').innerHTML = isLogin
+        ? 'Don\'t have an account? <a href="#" onclick="switchTab(\'register\'); return false;">Sign up free</a>'
+        : 'Already have an account? <a href="#" onclick="switchTab(\'login\'); return false;">Sign in</a>';
+
+      clearAlert();
+    }
+
+    // ── Password Visibility Toggle ────────────────────────────────
+    function togglePass(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const isPass = input.type === 'password';
+      input.type = isPass ? 'text' : 'password';
+      btn.innerHTML = isPass
+        ? '<i class="bi bi-eye-slash-fill"></i>'
+        : '<i class="bi bi-eye-fill"></i>';
+    }
+
+    // ── Password Strength Meter ───────────────────────────────────
+    function checkStrength(val) {
+      const wrap  = document.getElementById('strengthWrap');
+      const fill  = document.getElementById('strengthFill');
+      const label = document.getElementById('strengthLabel');
+
+      wrap.style.display = val.length > 0 ? 'block' : 'none';
+
+      let score = 0;
+      if (val.length >= 8)            score++;
+      if (/[A-Z]/.test(val))          score++;
+      if (/[0-9]/.test(val))          score++;
+      if (/[^A-Za-z0-9]/.test(val))   score++;
+
+      const levels = [
+        { pct: '25%', color: '#EF4444', text: 'Weak' },
+        { pct: '50%', color: '#F97316', text: 'Fair' },
+        { pct: '75%', color: '#F59E0B', text: 'Good' },
+        { pct: '100%', color: '#10B981', text: 'Strong' },
+      ];
+      const lvl = levels[Math.max(0, score - 1)];
+      fill.style.width      = lvl.pct;
+      fill.style.background = lvl.color;
+      label.textContent     = lvl.text;
+      label.style.color     = lvl.color;
+    }
+
+    // ── Alert banner ──────────────────────────────────────────────
+    function showAlert(msg, type) {
+      const el = document.getElementById('authAlert');
+      el.className = `auth-alert ${type}`;
+      document.getElementById('authAlertMsg').textContent = msg;
+      el.style.display = 'flex';
+    }
+    function clearAlert() {
+      const el = document.getElementById('authAlert');
+      el.style.display = 'none';
+      el.className = 'auth-alert';
+    }
+
+    // ── Login Form Submit ─────────────────────────────────────────
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAlert();
+
+      const email    = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const remember = document.getElementById('rememberMe').checked;
+
+      if (!email || !password) {
+        showAlert('Please fill in all fields.', 'error'); return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAlert('Please enter a valid email address.', 'error'); return;
+      }
+
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loader-mini"></span> Signing in…';
+
+      // Simulate auth (replace with your real Flask /login POST)
+      await new Promise(r => setTimeout(r, 1400));
+
+      // Demo: accept any credentials — redirect to predict page
+      showAlert('Login successful! Redirecting…', 'success');
+      setTimeout(() => { window.location.href = "{{ url_for('predict_page') }}"; }, 1000);
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Sign In';
+    });
+
+    // ── Register Form Submit ──────────────────────────────────────
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAlert();
+
+      const first   = document.getElementById('regFirstName').value.trim();
+      const last    = document.getElementById('regLastName').value.trim();
+      const email   = document.getElementById('regEmail').value.trim();
+      const pass    = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirm').value;
+      const terms   = document.getElementById('termsCheck').checked;
+
+      if (!first || !last || !email || !pass || !confirm) {
+        showAlert('Please fill in all fields.', 'error'); return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAlert('Please enter a valid email address.', 'error'); return;
+      }
+      if (pass.length < 8) {
+        showAlert('Password must be at least 8 characters.', 'error'); return;
+      }
+      if (pass !== confirm) {
+        showAlert('Passwords do not match.', 'error'); return;
+      }
+      if (!terms) {
+        showAlert('Please accept the Terms of Service.', 'error'); return;
+      }
+
+      const btn = document.getElementById('registerBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loader-mini"></span> Creating account…';
+
+      await new Promise(r => setTimeout(r, 1600));
+
+      showAlert('Account created successfully! You can now sign in.', 'success');
+      setTimeout(() => switchTab('login'), 1800);
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="bi bi-person-plus-fill"></i> Create Account';
+    });
+
+    // ── Social Login placeholder ──────────────────────────────────
+    function handleSocialLogin(provider) {
+      showAlert(`${provider} login is coming soon!`, 'error');
+    }
+
+    // ── Forgot Password placeholder ───────────────────────────────
+    function showForgot(e) {
+      e.preventDefault();
+      showAlert('Password reset link sent! Check your email inbox.', 'success');
+    }
+
+    // ── Loader mini style injected once ──────────────────────────
+    const loaderStyle = document.createElement('style');
+    loaderStyle.textContent = `.loader-mini{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}`;
+    document.head.appendChild(loaderStyle);
+  </script>
+</body>
+
+</html>

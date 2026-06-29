@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insurify — Smart Medical Insurance Cost Prediction</title>
+  <meta name="description"
+    content="Insurify helps you find the best medical insurance plans and predict your insurance cost instantly. Affordable, trusted, and fast." />
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body>
+
+  <!-- PAGE LOADER -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Insurify</div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar-insurify">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <!-- Brand -->
+        <a href="index.html" class="navbar-brand-logo">
+          <span class="logo-icon">I</span>
+          Insurify
+        </a>
+        <!-- Desktop Nav -->
+        <ul class="nav d-none d-lg-flex align-items-center gap-1">
+          <li><a href="index.html" class="nav-link" data-page="index.html">Home</a></li>
+          <li><a href="about.html" class="nav-link" data-page="about.html">About Us</a></li>
+          <li><a href="insurance.html" class="nav-link" data-page="insurance.html">Insurance Plans</a></li>
+          <li><a href="blogs.html" class="nav-link" data-page="blogs.html">Blogs</a></li>
+          <li><a href="contact.html" class="nav-link" data-page="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-none d-lg-flex align-items-center gap-2">
+          <a href="predict.html" class="btn-outline-custom">Predict Cost</a>
+          <a href="predict.html" class="btn-primary-custom">Get Started</a>
+        </div>
+
+        <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse"
+          data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-list" style="font-size:1.7rem;color:var(--primary)"></i>
+        </button>
+      </div>
+
+      <div class="collapse" id="mobileMenu">
+        <ul class="nav flex-column py-3 gap-1">
+          <li><a href="index.html" class="nav-link" data-page="index.html">Home</a></li>
+          <li><a href="about.html" class="nav-link" data-page="about.html">About Us</a></li>
+          <li><a href="insurance.html" class="nav-link" data-page="insurance.html">Insurance Plans</a></li>
+          <li><a href="blogs.html" class="nav-link" data-page="blogs.html">Blogs</a></li>
+          <li><a href="contact.html" class="nav-link" data-page="contact.html">Contact</a></li>
+          <li class="mt-2 d-flex flex-column gap-2">
+            <a href="predict.html" class="btn-outline-custom text-center">Predict Cost</a>
+            <a href="predict.html" class="btn-primary-custom justify-content-center">Get Started</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <h1 class="hero-title">
+            Smart <span>Medical Insurance</span> Cost Prediction &amp; Policy Support
+          </h1>
+          <p class="hero-desc">
+            Discover the perfect health insurance plan tailored for you and your family. Get instant cost predictions
+            powered by AI — fast, accurate, and completely free.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="predict.html" class="btn-primary-custom">Get Started Free</a>
+            <a href="predict.html" class="btn-outline-custom"
+              style="color:#fff!important;border:2.5px solid #fff;background:rgba(255,255,255,.18);backdrop-filter:blur(6px)">
+              <i class="bi bi-calculator"></i> Predict Insurance
+            </a>
+          </div>
+          <div class="d-flex align-items-center gap-4 mt-4">
+            <div style="color:rgba(255,255,255,.8);font-size:.85rem">
+              <i class="bi bi-check-circle-fill me-1" style="color:#A8EDEA"></i> No hidden charges
+            </div>
+            <div style="color:rgba(255,255,255,.8);font-size:.85rem">
+              <i class="bi bi-check-circle-fill me-1" style="color:#A8EDEA"></i> Instant results
+            </div>
+            <div style="color:rgba(255,255,255,.8);font-size:.85rem">
+              <i class="bi bi-check-circle-fill me-1" style="color:#A8EDEA"></i> 100% Secure
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FEATURES SECTION -->
+  <section class="section feature-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="badge-pill badge-primary mb-3">Why Insurify?</span>
+        <h2>Everything you need for <br>smarter health coverage</h2>
+        <p>We combine AI-powered predictions with real insurance expertise to give you the best possible guidance.</p>
+      </div>
+      <div class="row g-4 stagger-parent">
+        <div class="col-md-6 col-lg-3">
+          <div class="card-insurify h-100">
+            <div class="card-icon blue"><i class="bi bi-currency-rupee"></i></div>
+            <h5 class="fw-bold mb-2">Affordable Plans</h5>
+            <p class="text-muted" style="font-size:.92rem;line-height:1.7">Discover plans starting at just ₹999/month —
+              customized to your budget and health needs.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card-insurify h-100">
+            <div class="card-icon green"><i class="bi bi-lightning-charge-fill"></i></div>
+            <h5 class="fw-bold mb-2">Quick Prediction</h5>
+            <p class="text-muted" style="font-size:.92rem;line-height:1.7">Enter a few details and get your estimated
+              insurance cost instantly — no waiting, no hassle.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card-insurify h-100">
+            <div class="card-icon purple"><i class="bi bi-shield-lock-fill"></i></div>
+            <h5 class="fw-bold mb-2">Trusted Support</h5>
+            <p class="text-muted" style="font-size:.92rem;line-height:1.7">Our certified advisors are available 24/7 to
+              guide you through policies, claims, and renewals.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card-insurify h-100">
+            <div class="card-icon orange"><i class="bi bi-file-earmark-check-fill"></i></div>
+            <h5 class="fw-bold mb-2">Easy Claims</h5>
+            <p class="text-muted" style="font-size:.92rem;line-height:1.7">File claims paperlessly in minutes with our
+              digital-first process — quick approval guaranteed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" style="background:#fff">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="badge-pill badge-accent mb-3">How It Works</span>
+        <h2>Get covered in 3 simple steps</h2>
+        <p>Our streamlined process makes finding and activating your insurance policy incredibly easy.</p>
+      </div>
+      <div class="row g-4 align-items-start">
+        <div class="col-md-4 text-center reveal">
+          <div
+            style="width:80px;height:80px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;margin:0 auto 1.5rem;box-shadow:0 8px 32px rgba(26,111,219,.3)">
+            1</div>
+          <h5 class="fw-bold mb-2">Fill Your Details</h5>
+          <p class="text-muted">Enter your age, BMI, family info, and region — takes less than 2 minutes.</p>
+        </div>
+        <div class="col-md-4 text-center reveal" style="transition-delay:.1s">
+          <div
+            style="width:80px;height:80px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;margin:0 auto 1.5rem;box-shadow:0 8px 32px rgba(26,111,219,.3)">
+            2</div>
+          <h5 class="fw-bold mb-2">Get Cost Prediction</h5>
+          <p class="text-muted">Our ML model analyzes your data and predicts the most accurate insurance cost for you.
+          </p>
+        </div>
+        <div class="col-md-4 text-center reveal" style="transition-delay:.2s">
+          <div
+            style="width:80px;height:80px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;margin:0 auto 1.5rem;box-shadow:0 8px 32px rgba(26,111,219,.3)">
+            3</div>
+          <h5 class="fw-bold mb-2">Choose Your Plan</h5>
+          <p class="text-muted">Review recommended plans, compare coverage, and activate your policy online.</p>
+        </div>
+      </div>
+      <div class="text-center mt-5 reveal">
+        <a href="predict.html" class="btn-primary-custom">Try Cost Prediction Now</a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- CTA BANNER -->
+  <section class="section" style="background:var(--gradient);position:relative;overflow:hidden">
+    <div class="container text-center position-relative" style="z-index:2">
+      <div class="reveal">
+        <span class="badge-pill" style="background:rgba(255,255,255,.2);color:#fff;margin-bottom:1.25rem">🎯 Limited
+          Time Offer</span>
+        <h2 style="color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem">Ready to safeguard your health?
+        </h2>
+        <p style="color:rgba(255,255,255,.85);max-width:500px;margin:0 auto 2rem;font-size:1.05rem">Join 50,000+ Indians
+          who trust Insurify. Start with a free cost prediction today — no credit card needed.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a href="predict.html" class="btn-primary-custom"
+            style="background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border:2px solid rgba(255,255,255,.5)">
+            <i class="bi bi-calculator"></i> Predict My Cost
+          </a>
+          <a href="contact.html" class="btn-primary-custom"
+            style="background:#fff;color:var(--primary)!important;box-shadow:0 4px 20px rgba(0,0,0,.15)">
+            <i class="bi bi-telephone-fill"></i> Talk to an Expert
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" title="Back to top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

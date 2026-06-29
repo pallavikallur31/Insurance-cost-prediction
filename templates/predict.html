@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predict Insurance Cost — Insurify</title>
+  <meta name="description"
+    content="Get an instant estimate of your medical insurance cost using Insurify's AI-powered prediction tool." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <style>
+    .predict-section {
+      background: var(--bg-light);
+      padding: 60px 0 100px;
+    }
+
+    .predict-card {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .predict-card-header {
+      background: var(--gradient);
+      padding: 2rem 2.5rem;
+      color: #fff;
+    }
+
+    .predict-card-body {
+      padding: 2.5rem;
+    }
+
+    .field-section {
+      margin-bottom: 2rem;
+    }
+
+    .field-section-title {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .number-input-group {
+      display: flex;
+      align-items: center;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .number-input-group:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(26, 111, 219, .1);
+    }
+
+    .number-input-group button {
+      width: 44px;
+      background: var(--bg-light);
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--primary);
+      font-weight: 600;
+      transition: var(--transition);
+      flex-shrink: 0;
+      height: 48px;
+    }
+
+    .number-input-group button:hover {
+      background: rgba(26, 111, 219, .1);
+    }
+
+    .number-input-group input {
+      flex: 1;
+      border: none;
+      text-align: center;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      outline: none;
+      padding: 10px 4px;
+      background: #fff;
+    }
+
+    .predict-btn {
+      width: 100%;
+      padding: 18px;
+      background: var(--gradient);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 32px rgba(26, 111, 219, .35);
+      transition: var(--transition);
+      letter-spacing: .01em;
+    }
+
+    .predict-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(26, 111, 219, .45);
+    }
+
+    .predict-btn:disabled {
+      opacity: .75;
+      cursor: not-allowed;
+    }
+
+    .loader-mini {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255, 255, 255, .4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    .tips-card {
+      background: linear-gradient(135deg, rgba(26, 111, 219, .05), rgba(0, 184, 148, .05));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-loader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Insurify</div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar-insurify">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <a href="index.html" class="navbar-brand-logo"><span class="logo-icon">I</span>Insurify</a>
+        <ul class="nav d-none d-lg-flex align-items-center gap-1">
+          <li><a href="index.html" class="nav-link" data-page="index.html">Home</a></li>
+          <li><a href="about.html" class="nav-link" data-page="about.html">About Us</a></li>
+          <li><a href="insurance.html" class="nav-link" data-page="insurance.html">Insurance Plans</a></li>
+          <li><a href="blogs.html" class="nav-link" data-page="blogs.html">Blogs</a></li>
+          <li><a href="contact.html" class="nav-link" data-page="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-none d-lg-flex gap-2">
+          <a href="{{ url_for('login') }}" class="btn-outline-custom"><i class="bi bi-person-circle"></i> Login</a>
+          <a href="predict.html" class="btn-primary-custom">Get Started</a>
+        </div>
+        <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse"
+          data-bs-target="#mobileMenu" aria-expanded="false">
+          <i class="bi bi-list" style="font-size:1.7rem;color:var(--primary)"></i>
+        </button>
+      </div>
+      <div class="collapse" id="mobileMenu">
+        <ul class="nav flex-column py-3 gap-1">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="insurance.html" class="nav-link">Insurance Plans</a></li>
+          <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li class="mt-2 d-flex flex-column gap-2">
+            <a href="predict.html" class="btn-outline-custom text-center">Predict Cost</a>
+            <a href="predict.html" class="btn-primary-custom justify-content-center">Get Started</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="predict-hero">
+    <div class="container page-hero-content text-center" style="color:#fff">
+      <div class="breadcrumb-custom justify-content-center mb-3">
+        <a href="index.html" style="color:rgba(255,255,255,.8)">Home</a>
+        <i class="bi bi-chevron-right" style="font-size:.7rem"></i>
+        <span>Predict Cost</span>
+      </div>
+      <h1 style="font-size:clamp(1.9rem,4vw,3rem);font-weight:800;margin-bottom:.75rem">🔮 Predict Your Insurance Cost
+      </h1>
+      <p style="opacity:.88;max-width:520px;margin:0 auto">Fill in a few details and our AI model will estimate your
+        annual medical insurance premium accurately — for free.</p>
+    </div>
+  </section>
+
+  <!-- STEP INDICATOR -->
+  <div class="predict-section" style="padding-top:48px">
+    <div class="container">
+
+      <div class="step-indicator">
+        <div class="step-item active">
+          <div class="step-dot">1</div>
+          <div class="step-label">Personal Info</div>
+        </div>
+        <div class="step-line done"></div>
+        <div class="step-item active">
+          <div class="step-dot">2</div>
+          <div class="step-label">Health Details</div>
+        </div>
+        <div class="step-line done"></div>
+        <div class="step-item active">
+          <div class="step-dot">3</div>
+          <div class="step-label">Coverage</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item">
+          <div class="step-dot">4</div>
+          <div class="step-label">Result</div>
+        </div>
+      </div>
+
+      <div class="row g-5 justify-content-center">
+
+        <!-- MAIN FORM -->
+        <div class="col-lg-8">
+          <div class="predict-card reveal">
+            <div class="predict-card-header">
+              <div class="d-flex align-items-center gap-3">
+                <div style="font-size:2rem">🏥</div>
+                <div>
+                  <h4 style="margin:0;font-weight:700">Insurance Cost Predictor</h4>
+                  <p style="margin:0;opacity:.85;font-size:.9rem">AI-powered prediction — 92%+ accuracy</p>
+                </div>
+                <div class="ms-auto" style="text-align:right">
+                  <div style="font-size:.75rem;opacity:.8">Powered by</div>
+                  <div style="font-weight:700;font-size:1rem">Insurify ML</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="predict-card-body">
+              <form id="predictForm" novalidate>
+                <!-- Hidden values for toggles -->
+                <input type="hidden" id="genderValue" name="gender" value="male" />
+                <input type="hidden" id="smokerValue" name="smoker" value="no" />
+                <input type="hidden" id="maritalValue" name="marital" value="unmarried" />
+                <input type="hidden" id="membersValue" name="members" value="" />
+
+                <!-- SECTION 1: Personal Info -->
+                <div class="field-section">
+                  <div class="field-section-title"><i class="bi bi-person-fill"
+                      style="color:var(--primary)"></i>Personal Information</div>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label class="form-label-custom">Gender</label>
+                      <div class="toggle-group gender-toggle">
+                        <button type="button" class="toggle-btn active" data-value="male">
+                          <i class="bi bi-gender-male"></i> Male
+                        </button>
+                        <button type="button" class="toggle-btn" data-value="female">
+                          <i class="bi bi-gender-female"></i> Female
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <label class="form-label-custom">Marital Status</label>
+                      <div class="toggle-group marital-toggle">
+                        <button type="button" class="toggle-btn active" data-value="unmarried">
+                          <i class="bi bi-person"></i> Unmarried
+                        </button>
+                        <button type="button" class="toggle-btn" data-value="married">
+                          <i class="bi bi-people"></i> Married
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <label class="form-label-custom" for="age">Age (years)</label>
+                      <div class="number-input-group">
+                        <button type="button" onclick="stepInput('age', -1, 1, 100)">−</button>
+                        <input type="number" id="age" name="age" value="28" min="1" max="100" required />
+                        <button type="button" onclick="stepInput('age', 1, 1, 100)">+</button>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <label class="form-label-custom" for="region">Region</label>
+                      <select id="region" name="region" class="form-control-custom" required>
+                        <option value="" disabled selected>Select your region</option>
+                        <option value="southwest">Southwest</option>
+                        <option value="southeast">Southeast</option>
+                        <option value="northwest">Northwest</option>
+                        <option value="northeast">Northeast</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SECTION 2: Health Details -->
+                <div class="field-section">
+                  <div class="field-section-title"><i class="bi bi-heart-pulse-fill"
+                      style="color:var(--accent)"></i>Health Information</div>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label class="form-label-custom" for="bmi">BMI (Body Mass Index)</label>
+                      <div class="number-input-group">
+                        <button type="button" onclick="stepInput('bmi', -0.5, 10, 60, 1)">−</button>
+                        <input type="number" id="bmi" name="bmi" value="24.5" min="10" max="60" step="0.1" required />
+                        <button type="button" onclick="stepInput('bmi', 0.5, 10, 60, 1)">+</button>
+                      </div>
+                      <div style="font-size:.76rem;color:var(--text-muted);margin-top:.4rem">
+                        <span style="color:#10B981">Healthy: 18.5–24.9</span> &nbsp;|&nbsp; Overweight: 25–29.9
+                        &nbsp;|&nbsp; <span style="color:#EF4444">Obese: 30+</span>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <label class="form-label-custom">Do You Smoke?</label>
+                      <div class="toggle-group smoker-toggle">
+                        <button type="button" class="toggle-btn active" data-value="no">
+                          <i class="bi bi-wind"></i> No
+                        </button>
+                        <button type="button" class="toggle-btn" data-value="yes"
+                          style="--active-bg:linear-gradient(135deg,#EF4444,#F97316)">
+                          <i class="bi bi-fire"></i> Yes
+                        </button>
+                      </div>
+                      <div style="font-size:.76rem;color:#EF4444;margin-top:.4rem">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>Smoking increases premium by up to 2×
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SECTION 3: Coverage -->
+                <div class="field-section">
+                  <div class="field-section-title"><i class="bi bi-shield-fill" style="color:#8B5CF6"></i>Coverage
+                    Details</div>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label class="form-label-custom" for="children">Number of Children</label>
+                      <div class="number-input-group">
+                        <button type="button" onclick="stepInput('children', -1, 0, 10)">−</button>
+                        <input type="number" id="children" name="children" value="0" min="0" max="10" required />
+                        <button type="button" onclick="stepInput('children', 1, 0, 10)">+</button>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label-custom">Select Insurance Members</label>
+                      <div class="member-cards-grid">
+                        <div class="member-card selected" data-member="self">
+                          <span class="member-card-icon">🙋</span>Self
+                        </div>
+                        <div class="member-card" data-member="wife">
+                          <span class="member-card-icon">👩</span>Wife
+                        </div>
+                        <div class="member-card" data-member="son">
+                          <span class="member-card-icon">👦</span>Son
+                        </div>
+                        <div class="member-card" data-member="daughter">
+                          <span class="member-card-icon">👧</span>Daughter
+                        </div>
+                        <div class="member-card" data-member="father">
+                          <span class="member-card-icon">👨‍🦳</span>Father
+                        </div>
+                        <div class="member-card" data-member="mother">
+                          <span class="member-card-icon">👩‍🦳</span>Mother
+                        </div>
+                      </div>
+                      <div style="font-size:.76rem;color:var(--text-muted);margin-top:.6rem">
+                        <i class="bi bi-info-circle me-1" style="color:var(--primary)"></i>Click to select/deselect
+                        members to insure
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PREDICT BUTTON -->
+                <button type="submit" class="predict-btn">
+                  🔮 Predict My Insurance Cost
+                </button>
+                <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin-top:.75rem">
+                  <i class="bi bi-lock-fill me-1"></i>Your data is 100% secure and never shared.
+                </p>
+              </form>
+
+              <!-- RESULT CARD -->
+              <div class="result-card mt-4">
+                <div style="font-size:3rem;margin-bottom:1rem">🎉</div>
+                <div style="font-size:.85rem;opacity:.85;margin-bottom:.4rem">Your Estimated Annual Premium</div>
+                <div class="result-amount" id="resultAmount">₹0</div>
+                <div style="font-size:.82rem;opacity:.75;margin-top:.3rem">per year (approximate)</div>
+                <hr style="border-color:rgba(255,255,255,.25);margin:1.5rem 0">
+                <div class="row g-3 text-center">
+                  <div class="col-4">
+                    <div style="font-size:.75rem;opacity:.75">Monthly</div>
+                    <div id="monthlyAmount" style="font-weight:700;font-size:1.1rem">—</div>
+                  </div>
+                  <div class="col-4">
+                    <div style="font-size:.75rem;opacity:.75">Coverage Level</div>
+                    <div id="coverageLevel" style="font-weight:700;font-size:1.1rem">—</div>
+                  </div>
+                  <div class="col-4">
+                    <div style="font-size:.75rem;opacity:.75">Risk Band</div>
+                    <div id="riskBand" style="font-weight:700;font-size:1.1rem">—</div>
+                  </div>
+                </div>
+                <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+                  <a href="insurance.html"
+                    style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.4);border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;transition:var(--transition)"
+                    onmouseover="this.style.background='rgba(255,255,255,.3)'"
+                    onmouseout="this.style.background='rgba(255,255,255,.2)'">
+                    <i class="bi bi-list-ul"></i> View Plans
+                  </a>
+                  <a href="contact.html"
+                    style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#fff;color:var(--primary);border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;transition:var(--transition);box-shadow:0 4px 16px rgba(0,0,0,.15)"
+                    onmouseover="this.style.background='rgba(255,255,255,.9)'"
+                    onmouseout="this.style.background='#fff'">
+                    <i class="bi bi-telephone-fill"></i> Talk to Expert
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR TIPS -->
+        <div class="col-lg-4">
+          <div class="d-flex flex-column gap-4">
+
+            <!-- How prediction works -->
+            <div class="tips-card reveal">
+              <h6 class="fw-bold mb-3" style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:1.1rem">🤖</span> How Our Prediction Works
+              </h6>
+              <ul style="list-style:none;padding:0;font-size:.88rem;color:var(--text-muted)">
+                <li class="mb-2 d-flex gap-2"><i class="bi bi-check-circle-fill"
+                    style="color:var(--accent);margin-top:2px;flex-shrink:0"></i>Trained on nearly 3,000 real insurance cases
+                </li>
+                <li class="mb-2 d-flex gap-2"><i class="bi bi-check-circle-fill"
+                    style="color:var(--accent);margin-top:2px;flex-shrink:0"></i>Uses Random Forest Machine Learning
+                </li>
+                <li class="mb-2 d-flex gap-2"><i class="bi bi-check-circle-fill"
+                    style="color:var(--accent);margin-top:2px;flex-shrink:0"></i>95%+ prediction accuracy
+                </li>
+                <li class="mb-2 d-flex gap-2"><i class="bi bi-check-circle-fill"
+                    style="color:var(--accent);margin-top:2px;flex-shrink:0"></i>Result within 2 seconds
+                </li>
+              </ul>
+            </div>
+
+            <!-- Factors that affect premium -->
+            <div class="tips-card reveal" style="transition-delay:.1s">
+              <h6 class="fw-bold mb-3" style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:1.1rem">📈</span> Premium Factors
+              </h6>
+              <div style="font-size:.87rem">
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border)">
+                  <span style="color:var(--text-muted)">Age</span>
+                  <div style="display:flex;gap:3px">
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--primary)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--primary)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--primary)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                  </div>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border)">
+                  <span style="color:var(--text-muted)">Smoking</span>
+                  <div style="display:flex;gap:3px">
+                    <div style="width:10px;height:10px;border-radius:2px;background:#EF4444"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:#EF4444"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:#EF4444"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:#EF4444"></div>
+                  </div>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border)">
+                  <span style="color:var(--text-muted)">BMI</span>
+                  <div style="display:flex;gap:3px">
+                    <div style="width:10px;height:10px;border-radius:2px;background:#F97316"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:#F97316"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                  </div>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border)">
+                  <span style="color:var(--text-muted)">Children</span>
+                  <div style="display:flex;gap:3px">
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--accent)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0">
+                  <span style="color:var(--text-muted)">Region</span>
+                  <div style="display:flex;gap:3px">
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--accent)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                    <div style="width:10px;height:10px;border-radius:2px;background:var(--border)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="tips-card reveal" style="transition-delay:.2s">
+              <h6 class="fw-bold mb-3" style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:1.1rem">💡</span> Tips to Reduce Premium
+              </h6>
+              <ul style="list-style:none;padding:0;font-size:.87rem;color:var(--text-muted)">
+                <li class="mb-2">🚭 Quit smoking to save up to 50% on premium</li>
+                <li class="mb-2">🏃 Maintain healthy BMI (18.5–24.9) for discounts</li>
+                <li class="mb-2">📅 Buy early — younger age = lower premium</li>
+                <li class="mb-2">👪 Consider family floater for cost efficiency</li>
+                <li class="mb-2">📋 Choose higher deductibles to reduce premiums</li>
+              </ul>
+            </div>
+
+            <!-- Need help? -->
+            <div
+              style="background:var(--gradient);border-radius:var(--radius-md);padding:1.5rem;color:#fff;text-align:center"
+              class="reveal" style="transition-delay:.3s">
+              <div style="font-size:2rem;margin-bottom:.75rem">🤝</div>
+              <h6 style="font-weight:700;margin-bottom:.5rem">Need Expert Guidance?</h6>
+              <p style="font-size:.85rem;opacity:.88;margin-bottom:1.25rem">Our certified advisors will help you choose
+                the best plan for your needs and budget.</p>
+              <a href="contact.html"
+                style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:rgba(255,255,255,.25);color:#fff;border:2px solid rgba(255,255,255,.5);border-radius:var(--radius-sm);font-weight:600;font-size:.88rem;transition:var(--transition)"
+                onmouseover="this.style.background='rgba(255,255,255,.35)'"
+                onmouseout="this.style.background='rgba(255,255,255,.25)'">
+                <i class="bi bi-telephone-fill"></i> Talk to an Expert
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <button class="back-to-top" id="backToTop"><i class="bi bi-arrow-up"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    // ── Flask backend URL ──────────────────────────────────────────
+    const FLASK_API = '/predict';
+
+    // Numeric stepper inputs
+    function stepInput(id, step, min, max, decimals) {
+      const el = document.getElementById(id);
+      let val = parseFloat(el.value) + step;
+      if (val < min) val = min;
+      if (val > max) val = max;
+      el.value = decimals ? val.toFixed(decimals) : Math.round(val);
+    }
+
+    // Utility: show a toast-style error banner
+    function showError(msg) {
+      let toast = document.getElementById('api-error-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'api-error-toast';
+        toast.style.cssText = `
+          position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+          background:#EF4444;color:#fff;padding:14px 28px;border-radius:12px;
+          font-weight:600;font-size:.9rem;z-index:9999;
+          box-shadow:0 8px 32px rgba(239,68,68,.4);
+          display:flex;align-items:center;gap:10px;`;
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> ${msg}`;
+      toast.style.display = 'flex';
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => { toast.style.display = 'none'; }, 5000);
+    }
+
+    // ── Form submit → fetch ML prediction ──────────────────────────
+    const origPredictForm = document.getElementById('predictForm');
+    if (origPredictForm) {
+      origPredictForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const btn = origPredictForm.querySelector('.predict-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loader-mini"></span> Analyzing your profile…';
+
+        // Collect form values
+        const age      = parseFloat(document.getElementById('age')?.value)      || 28;
+        const bmi      = parseFloat(document.getElementById('bmi')?.value)      || 24.5;
+        const children = parseFloat(document.getElementById('children')?.value) || 0;
+        const genderRaw= document.getElementById('genderValue')?.value || 'male';
+        const smokerRaw= document.getElementById('smokerValue')?.value || 'no';
+        const maritalRaw= document.getElementById('maritalValue')?.value || 'unmarried';
+        const region   = document.getElementById('region')?.value       || 'northeast';
+
+        const sex    = genderRaw === 'female' ? 1 : 0;   // model expects 0=male,1=female
+        const smoker = smokerRaw === 'yes'    ? 1 : 0;   // model expects 0=no,  1=yes
+        const marital = maritalRaw === 'married' ? 1 : 0;
+
+        try {
+          const response = await fetch(FLASK_API, {
+            method : 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body   : JSON.stringify({ age, sex, bmi, children, smoker, marital, region })
+          });
+
+          if (!response.ok) throw new Error(`Server error: ${response.status}`);
+
+          const result = await response.json();
+
+          if (!result.success) throw new Error(result.error || 'Prediction failed');
+
+          // ── Display results ──────────────────────────────────────
+          const rc = document.querySelector('.result-card');
+          if (rc) {
+            const annual = result.annual;
+            document.getElementById('resultAmount').textContent =
+              '₹' + annual.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('monthlyAmount').textContent =
+              '₹' + result.monthly.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('coverageLevel').textContent = result.coverage;
+            document.getElementById('riskBand').textContent      = result.risk;
+
+            rc.classList.add('show');
+            rc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+
+        } catch (err) {
+          console.error('Prediction error:', err);
+          if (err.message.includes('fetch') || err.message.includes('Failed')) {
+            showError('⚠️ Cannot reach backend. Make sure Flask is running on port 5000.');
+          } else {
+            showError(err.message);
+          }
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '🔮 Predict My Insurance Cost';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

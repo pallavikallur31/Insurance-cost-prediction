@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Insurify</title>
+  <meta name="description" content="Insurance insights, tips, and guides from Insurify. Learn about health insurance, premium calculation, and more." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="page-loader"><div class="loader-ring"></div><div class="loader-text">Insurify</div></div>
+
+<!-- NAVBAR -->
+<nav class="navbar-insurify">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <a href="index.html" class="navbar-brand-logo"><span class="logo-icon">I</span>Insurify</a>
+      <ul class="nav d-none d-lg-flex align-items-center gap-1">
+        <li><a href="index.html" class="nav-link" data-page="index.html">Home</a></li>
+        <li><a href="about.html" class="nav-link" data-page="about.html">About Us</a></li>
+        <li><a href="insurance.html" class="nav-link" data-page="insurance.html">Insurance Plans</a></li>
+        <li><a href="blogs.html" class="nav-link" data-page="blogs.html">Blogs</a></li>
+        <li><a href="contact.html" class="nav-link" data-page="contact.html">Contact</a></li>
+      </ul>
+      <div class="d-none d-lg-flex gap-2">
+        <a href="predict.html" class="btn-outline-custom">Predict Cost</a>
+        <a href="predict.html" class="btn-primary-custom">Get Started</a>
+      </div>
+      <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-expanded="false">
+        <i class="bi bi-list" style="font-size:1.7rem;color:var(--primary)"></i>
+      </button>
+    </div>
+    <div class="collapse" id="mobileMenu">
+      <ul class="nav flex-column py-3 gap-1">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="insurance.html" class="nav-link">Insurance Plans</a></li>
+        <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <li class="mt-2 d-flex flex-column gap-2">
+          <a href="predict.html" class="btn-outline-custom text-center">Predict Cost</a>
+          <a href="predict.html" class="btn-primary-custom justify-content-center">Get Started</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container page-hero-content">
+    <div class="breadcrumb-custom justify-content-center mb-3">
+      <a href="index.html">Home</a><i class="bi bi-chevron-right" style="font-size:.7rem"></i><span>Blog</span>
+    </div>
+    <h1>Insurify Blog</h1>
+    <p>Expert insights, tips, and guides to help you make smarter decisions about health insurance.</p>
+  </div>
+</section>
+
+<!-- SEARCH & FILTER -->
+<section class="section-sm" style="background:var(--bg-light)">
+  <div class="container">
+    <div class="search-bar">
+      <i class="bi bi-search me-1" style="color:var(--text-muted)"></i>
+      <input type="text" id="blogSearch" placeholder="Search articles…" />
+      <button type="button">Search</button>
+    </div>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-tag="all">All Articles</button>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="section" style="background:var(--bg-light);padding-top:0">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Blog 1 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="tips">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#1A6FDB,#0D47A1)">🏥</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Tips &amp; Advice</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/what-is-a-solvency-ratio/" target="_blank">What is Solvency Ratio in Insurance, Formula, Types</a>
+            </h3>
+            <p class="blog-excerpt">Understanding the solvency ratio in insurance, its importance, formulas, and what it means for your policy choices...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Avneet Kaur</span>
+              <span><i class="bi bi-clock me-1"></i>5 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/what-is-a-solvency-ratio/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 2 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="basics" style="transition-delay:.08s">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#00B894,#1A6FDB)">📊</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Insurance Basics</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/5-health-insurance-riders-you-should-know-about/" target="_blank">5 Health Insurance Riders You Should Know About</a>
+            </h3>
+            <p class="blog-excerpt">Learn about the 5 essential health insurance riders that can provide additional coverage and benefits to your existing plan...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Sridhar Sahu</span>
+              <span><i class="bi bi-clock me-1"></i>6 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/5-health-insurance-riders-you-should-know-about/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 3 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="premium" style="transition-delay:.16s">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#F97316,#EF4444)">👪</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Premium &amp; Cost</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/exit-from-ulip-policy-before-maturity/" target="_blank">Can You Exit from ULIP Policy Before Maturity?</a>
+            </h3>
+            <p class="blog-excerpt">Find out the conditions, charges, and process involved if you wish to surrender or exit your ULIP policy before it matures...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Tinesh Bhasin</span>
+              <span><i class="bi bi-clock me-1"></i>7 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/exit-from-ulip-policy-before-maturity/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 4 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="tips">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#8B5CF6,#1A6FDB)">💡</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Tips &amp; Advice</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/exit-from-traditional-life-insurance-policy/" target="_blank">How To Exit Traditional Life Insurance Policy</a>
+            </h3>
+            <p class="blog-excerpt">A comprehensive guide on how to safely exit or surrender a traditional life insurance policy, and what to consider before doing so...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Tinesh Bhasin</span>
+              <span><i class="bi bi-clock me-1"></i>5 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/exit-from-traditional-life-insurance-policy/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 5 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="family" style="transition-delay:.08s">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#06B6D4,#00B894)">📋</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Family &amp; Health</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/4-reasons-why-you-should-buy-individual-health-insurance-over-group-health-insurance-plan/" target="_blank">Buy Individual Health Insurance Over Group Health</a>
+            </h3>
+            <p class="blog-excerpt">Explore the top reasons why investing in an individual health insurance plan is superior compared to relying solely on group plans...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Sridhar Sahu</span>
+              <span><i class="bi bi-clock me-1"></i>6 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/4-reasons-why-you-should-buy-individual-health-insurance-over-group-health-insurance-plan/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 6 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="basics" style="transition-delay:.16s">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#0D47A1,#8B5CF6)">🤖</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Insurance Basics</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/know-everything-about-insurance-and-why-you-should-have-insurance/" target="_blank">Insurance: Meaning, Types, Benefits, Components</a>
+            </h3>
+            <p class="blog-excerpt">Everything you need to know about insurance: from basic meaning and various types, to the immense benefits and core components...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Avneet Kaur</span>
+              <span><i class="bi bi-clock me-1"></i>8 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/know-everything-about-insurance-and-why-you-should-have-insurance/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 7 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="premium">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#F59E0B,#EF4444)">👴</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Premium &amp; Cost</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/what-are-top-up-plans-in-health-insurance-and-should-you-buy-it/" target="_blank">What Are Top-up Plans In Health Insurance?</a>
+            </h3>
+            <p class="blog-excerpt">What are top-up health insurance plans? Understand how they work, their benefits, and if you should add them to your portfolio...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Avneet Kaur</span>
+              <span><i class="bi bi-clock me-1"></i>5 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/what-are-top-up-plans-in-health-insurance-and-should-you-buy-it/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 8 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="tips" style="transition-delay:.08s">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#10B981,#06B6D4)">🎯</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Tips &amp; Advice</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/planning-to-buy-a-health-insurance-policy-here-are-the-5-things-to-do/" target="_blank">5 Things to Do Before Buying Health Insurance</a>
+            </h3>
+            <p class="blog-excerpt">Planning to purchase a new health insurance policy? Here are the top 5 vital steps you must follow to make an informed decision...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Avneet Kaur</span>
+              <span><i class="bi bi-clock me-1"></i>6 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/planning-to-buy-a-health-insurance-policy-here-are-the-5-things-to-do/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 9 -->
+      <div class="col-md-6 col-lg-4 blog-item reveal" data-tag="basics" style="transition-delay:.16s">
+        <div class="blog-card">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#7C3AED,#EC4899)">💊</div>
+          <div class="blog-card-body">
+            <span class="blog-tag">Insurance Basics</span>
+            <h3 class="blog-card-title">
+              <a href="https://www.etmoney.com/learn/insurance/5-things-to-know-before-buying-term-life-insurance-plan/" target="_blank">5 Things to Know Before Buying Term Life Insurance</a>
+            </h3>
+            <p class="blog-excerpt">Consider these 5 crucial factors before you commit to a term life insurance policy to ensure maximum coverage and peace of mind...</p>
+            <div class="blog-meta">
+              <span><i class="bi bi-person me-1"></i>Sridhar Sahu</span>
+              <span><i class="bi bi-clock me-1"></i>5 min read</span>
+              <span><i class="bi bi-calendar3 me-1"></i>Recent</span>
+            </div>
+            <div class="mt-3">
+              <a href="https://www.etmoney.com/learn/insurance/5-things-to-know-before-buying-term-life-insurance-plan/" target="_blank" class="btn-outline-custom" style="padding:8px 18px;font-size:.83rem">Read Article →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- No results message -->
+    <div id="noResults" style="display:none;text-align:center;padding:3rem 0">
+      <div style="font-size:3rem;margin-bottom:1rem">🔍</div>
+      <h5 style="color:var(--text-muted)">No articles found</h5>
+      <p style="color:var(--text-light)">Try a different search term or filter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="section" style="background:var(--gradient)">
+  <div class="container text-center">
+    <div class="reveal">
+      <h2 style="color:#fff;margin-bottom:.75rem">Never miss an insurance tip</h2>
+      <p style="color:rgba(255,255,255,.85);max-width:460px;margin:0 auto 2rem">Subscribe to our weekly newsletter for expert advice, policy updates, and exclusive offers.</p>
+      <div style="display:flex;gap:0;max-width:420px;margin:0 auto;background:rgba(255,255,255,.15);border-radius:var(--radius-sm);overflow:hidden;border:1px solid rgba(255,255,255,.3)">
+        <input type="email" placeholder="Enter your email address" style="flex:1;border:none;background:transparent;padding:14px 18px;color:#fff;font-family:inherit;font-size:.92rem;outline:none">
+        <button style="padding:14px 22px;background:#fff;color:var(--primary);border:none;font-weight:700;cursor:pointer;font-size:.9rem;white-space:nowrap">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<button class="back-to-top" id="backToTop"><i class="bi bi-arrow-up"></i></button>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+  // Extra: watch no-results
+  const observer = new MutationObserver(() => {
+    const visible = [...document.querySelectorAll('.blog-item')].filter(el => el.style.display !== 'none');
+    document.getElementById('noResults').style.display = visible.length === 0 ? 'block' : 'none';
+  });
+  document.querySelectorAll('.blog-item').forEach(el => observer.observe(el, { attributes: true, attributeFilter: ['style'] }));
+</script>
+</body>
+</html>
